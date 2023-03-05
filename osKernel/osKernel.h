@@ -6,6 +6,7 @@
 
 void osKernelLaunch(uint32_t quanta);
 void osKernelInit(void);
+void osKernelPeriodicInit();
 uint8_t osKernelTaskCreate(void(*task0)(void));
 void osKernelPeriodicTaskCreate( void(*task)() ,uint32_t period);
 void osTaskYield(void);

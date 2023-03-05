@@ -41,13 +41,15 @@ void periodicTask2(void)
 int main()
 {	
 	osKernelInit();
+  osKernelPeriodicInit();
+
 	
 	osKernelTaskCreate(&task0);
 	osKernelTaskCreate(&task1);
 	osKernelTaskCreate(&task2);
-	osKernelPeriodicTaskCreate(periodicTask1, 100);
+	osKernelPeriodicTaskCreate(periodicTask1, 1000);
 	osKernelPeriodicTaskCreate(periodicTask2, 1000);
-
+	
 	osKernelLaunch(10);
 	
 	while(1);

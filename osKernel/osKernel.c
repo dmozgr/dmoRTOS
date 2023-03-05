@@ -5,12 +5,12 @@
 */
 
 #include "osKernel.h"
+#include "../circularlinkedlist.h"
 
 #define NUM_OF_THREADS 	3
 #define NUM_OF_PERIODIC_TASK	2
 #define STACK_SIZE 		100
 #define BUS_FREQ		16000000
-
 
 
 static uint32_t MILLIS_PRESCALER;
@@ -37,6 +37,7 @@ struct tcb_t{
 };
 typedef struct tcb_t tcb_t;
 
+circularlinkedlist_t *periodicTaskList;
 static tcb_t tcbs[NUM_OF_THREADS];
 static periodicTask_t periodicTasks[NUM_OF_PERIODIC_TASK];
 
@@ -68,6 +69,7 @@ void osKernelStackInit(int i){
 uint8_t osKernelTaskCreate(void(*task)(void))
 {
 	__disable_irq();
+	
 	tcbs[numOfAddedThread].nextPt = &tcbs[(numOfAddedThread + 1) % NUM_OF_THREADS];
 	TCB_STACK[numOfAddedThread][STACK_SIZE - 2] = (uint32_t)task;
 	osKernelStackInit(numOfAddedThread);
@@ -83,6 +85,7 @@ uint8_t osKernelTaskCreate(void(*task)(void))
 
 void osKernelInit(void)
 {
+	periodicTaskList = circularlinkedlist_new();
 	MILLIS_PRESCALER =  (BUS_FREQ/1000);
 }
 
@@ -95,7 +98,12 @@ void osKernelLaunch(uint32_t quanta)
 
 	SYSPRI3 =(SYSPRI3&0x00FFFFFF)|0xE0000000; // priority 7
 	SysTick->CTRL =  0x00000007;
+	
+	osSchedulerLaunch();
+}
 
+void osKernelPeriodicInit()
+{
 	RCC->APB1ENR |= 1<<0;
 	TIM2->CR1 = 0;
 	TIM2->PSC = 16-1;
@@ -103,27 +111,29 @@ void osKernelLaunch(uint32_t quanta)
 	TIM2->DIER |= 1<<0;
 	NVIC_EnableIRQ(TIM2_IRQn);
 	TIM2->CR1 |= 1<<0;
-	osSchedulerLaunch();
 }
 
 void TIM2_IRQHandler(void)
 {
 	TIM2->SR &= ~(1<<0);
-	for( uint8_t i = 0; i < NUM_OF_PERIODIC_TASK; i++)
+	
+	for( uint8_t i = 0; i < circularlinkedlist_size(periodicTaskList); i++)
 	{
-		if( ( (periodTick) % periodicTasks[i].period) == 0 )
-		{
-			periodicTasks[i].task();
-		}
+		periodicTask_t *task = (periodicTask_t*)circularlinkedlist_get_by_index(periodicTaskList,i);
+		if( (periodTick % task->period) == 0 )
+			task->task();
 	}
 	periodTick++;
 }
 
 void osKernelPeriodicTaskCreate( void(*task)() ,uint32_t period)
 {
-	periodicTasks[numOfAddedPeriodicTask].period = period;
-	periodicTasks[numOfAddedPeriodicTask].task = task;
-	numOfAddedPeriodicTask++;
+	periodicTask_t *temp = (periodicTask_t*)malloc( sizeof(periodicTask_t));
+	temp->period = period;
+	temp->task = task;
+	
+	circularlinkedlist_insert(periodicTaskList, (void*)temp);
+		uint32_t size = circularlinkedlist_size(periodicTaskList);
 }
 
 void osSchedulerRoundRobin(void)

@@ -1,0 +1,574 @@
+Component: Arm Compiler for Embedded 6.19 Tool: armlink [5e73cb00]
+
+==============================================================================
+
+Section Cross References
+
+    oskernel.o(.text.osKernelStackInit) refers to oskernel.o(.bss.TCB_STACK) for TCB_STACK
+    oskernel.o(.text.osKernelStackInit) refers to oskernel.o(.bss.tcbs) for tcbs
+    oskernel.o(.ARM.exidx.text.osKernelStackInit) refers to oskernel.o(.text.osKernelStackInit) for [Anonymous Symbol]
+    oskernel.o(.text.osKernelTaskCreate) refers to oskernel.o(.bss.numOfAddedThread) for numOfAddedThread
+    oskernel.o(.text.osKernelTaskCreate) refers to oskernel.o(.bss.tcbs) for tcbs
+    oskernel.o(.text.osKernelTaskCreate) refers to oskernel.o(.bss.TCB_STACK) for TCB_STACK
+    oskernel.o(.text.osKernelTaskCreate) refers to oskernel.o(.text.osKernelStackInit) for osKernelStackInit
+    oskernel.o(.text.osKernelTaskCreate) refers to oskernel.o(.bss.currentPt) for currentPt
+    oskernel.o(.ARM.exidx.text.osKernelTaskCreate) refers to oskernel.o(.text.osKernelTaskCreate) for [Anonymous Symbol]
+    oskernel.o(.text.osKernelInit) refers to circulerlinkedlist.o(.text.circularlinkedlist_new) for circularlinkedlist_new
+    oskernel.o(.text.osKernelInit) refers to oskernel.o(.bss.periodicTaskList) for periodicTaskList
+    oskernel.o(.text.osKernelInit) refers to oskernel.o(.bss.MILLIS_PRESCALER) for MILLIS_PRESCALER
+    oskernel.o(.ARM.exidx.text.osKernelInit) refers to oskernel.o(.text.osKernelInit) for [Anonymous Symbol]
+    oskernel.o(.text.osKernelLaunch) refers to oskernel.o(.bss.MILLIS_PRESCALER) for MILLIS_PRESCALER
+    oskernel.o(.text.osKernelLaunch) refers to oskernel_1.o(.text) for osSchedulerLaunch
+    oskernel.o(.ARM.exidx.text.osKernelLaunch) refers to oskernel.o(.text.osKernelLaunch) for [Anonymous Symbol]
+    oskernel.o(.text.osKernelPeriodicInit) refers to oskernel.o(.text.__NVIC_EnableIRQ) for __NVIC_EnableIRQ
+    oskernel.o(.ARM.exidx.text.osKernelPeriodicInit) refers to oskernel.o(.text.osKernelPeriodicInit) for [Anonymous Symbol]
+    oskernel.o(.ARM.exidx.text.__NVIC_EnableIRQ) refers to oskernel.o(.text.__NVIC_EnableIRQ) for [Anonymous Symbol]
+    oskernel.o(.text.TIM2_IRQHandler) refers to oskernel.o(.bss.periodicTaskList) for periodicTaskList
+    oskernel.o(.text.TIM2_IRQHandler) refers to circulerlinkedlist.o(.text.circularlinkedlist_size) for circularlinkedlist_size
+    oskernel.o(.text.TIM2_IRQHandler) refers to circulerlinkedlist.o(.text.circularlinkedlist_get_by_index) for circularlinkedlist_get_by_index
+    oskernel.o(.text.TIM2_IRQHandler) refers to oskernel.o(.bss.periodTick) for periodTick
+    oskernel.o(.ARM.exidx.text.TIM2_IRQHandler) refers to oskernel.o(.text.TIM2_IRQHandler) for [Anonymous Symbol]
+    oskernel.o(.text.osKernelPeriodicTaskCreate) refers to malloc.o(i.malloc) for malloc
+    oskernel.o(.text.osKernelPeriodicTaskCreate) refers to oskernel.o(.bss.periodicTaskList) for periodicTaskList
+    oskernel.o(.text.osKernelPeriodicTaskCreate) refers to circulerlinkedlist.o(.text.circularlinkedlist_insert) for circularlinkedlist_insert
+    oskernel.o(.text.osKernelPeriodicTaskCreate) refers to circulerlinkedlist.o(.text.circularlinkedlist_size) for circularlinkedlist_size
+    oskernel.o(.ARM.exidx.text.osKernelPeriodicTaskCreate) refers to oskernel.o(.text.osKernelPeriodicTaskCreate) for [Anonymous Symbol]
+    oskernel.o(.text.osSchedulerRoundRobin) refers to oskernel.o(.bss.currentPt) for currentPt
+    oskernel.o(.ARM.exidx.text.osSchedulerRoundRobin) refers to oskernel.o(.text.osSchedulerRoundRobin) for [Anonymous Symbol]
+    oskernel.o(.ARM.exidx.text.osTaskYield) refers to oskernel.o(.text.osTaskYield) for [Anonymous Symbol]
+    oskernel_1.o(.text) refers to oskernel.o(.text.osSchedulerRoundRobin) for osSchedulerRoundRobin
+    oskernel_1.o(.text) refers to oskernel.o(.bss.currentPt) for currentPt
+    main.o(.text.task0) refers to main.o(.bss.task0Profiller) for task0Profiller
+    main.o(.text.task0) refers to oskernel.o(.text.osTaskYield) for osTaskYield
+    main.o(.ARM.exidx.text.task0) refers to main.o(.text.task0) for [Anonymous Symbol]
+    main.o(.text.task1) refers to main.o(.bss.task1Profiller) for task1Profiller
+    main.o(.text.task1) refers to oskernel.o(.text.osTaskYield) for osTaskYield
+    main.o(.ARM.exidx.text.task1) refers to main.o(.text.task1) for [Anonymous Symbol]
+    main.o(.text.task2) refers to main.o(.bss.task2Profiller) for task2Profiller
+    main.o(.text.task2) refers to oskernel.o(.text.osTaskYield) for osTaskYield
+    main.o(.ARM.exidx.text.task2) refers to main.o(.text.task2) for [Anonymous Symbol]
+    main.o(.text.periodicTask1) refers to main.o(.bss.periodicTask1Profiller) for periodicTask1Profiller
+    main.o(.ARM.exidx.text.periodicTask1) refers to main.o(.text.periodicTask1) for [Anonymous Symbol]
+    main.o(.text.periodicTask2) refers to main.o(.bss.periodicTask2Profiller) for periodicTask2Profiller
+    main.o(.ARM.exidx.text.periodicTask2) refers to main.o(.text.periodicTask2) for [Anonymous Symbol]
+    main.o(.text.main) refers to oskernel.o(.text.osKernelInit) for osKernelInit
+    main.o(.text.main) refers to oskernel.o(.text.osKernelPeriodicInit) for osKernelPeriodicInit
+    main.o(.text.main) refers to main.o(.text.task0) for task0
+    main.o(.text.main) refers to oskernel.o(.text.osKernelTaskCreate) for osKernelTaskCreate
+    main.o(.text.main) refers to main.o(.text.task1) for task1
+    main.o(.text.main) refers to main.o(.text.task2) for task2
+    main.o(.text.main) refers to main.o(.text.periodicTask1) for periodicTask1
+    main.o(.text.main) refers to oskernel.o(.text.osKernelPeriodicTaskCreate) for osKernelPeriodicTaskCreate
+    main.o(.text.main) refers to main.o(.text.periodicTask2) for periodicTask2
+    main.o(.text.main) refers to oskernel.o(.text.osKernelLaunch) for osKernelLaunch
+    main.o(.ARM.exidx.text.main) refers to main.o(.text.main) for [Anonymous Symbol]
+    circulerlinkedlist.o(.ARM.exidx.text.circularlinkedlist_size) refers to circulerlinkedlist.o(.text.circularlinkedlist_size) for [Anonymous Symbol]
+    circulerlinkedlist.o(.text.circularlinkedlist_new) refers to malloc.o(i.malloc) for malloc
+    circulerlinkedlist.o(.ARM.exidx.text.circularlinkedlist_new) refers to circulerlinkedlist.o(.text.circularlinkedlist_new) for [Anonymous Symbol]
+    circulerlinkedlist.o(.text.circularlinkedlist_insert) refers to malloc.o(i.malloc) for malloc
+    circulerlinkedlist.o(.ARM.exidx.text.circularlinkedlist_insert) refers to circulerlinkedlist.o(.text.circularlinkedlist_insert) for [Anonymous Symbol]
+    circulerlinkedlist.o(.text.circularlinkedlist_get_by_index) refers to circulerlinkedlist.o(.text.circularlinkedlist_size) for circularlinkedlist_size
+    circulerlinkedlist.o(.ARM.exidx.text.circularlinkedlist_get_by_index) refers to circulerlinkedlist.o(.text.circularlinkedlist_get_by_index) for [Anonymous Symbol]
+    startup_stm32f407xx.o(RESET) refers to startup_stm32f407xx.o(STACK) for __initial_sp
+    startup_stm32f407xx.o(RESET) refers to startup_stm32f407xx.o(.text) for Reset_Handler
+    startup_stm32f407xx.o(RESET) refers to oskernel_1.o(.text) for SysTick_Handler
+    startup_stm32f407xx.o(RESET) refers to oskernel.o(.text.TIM2_IRQHandler) for TIM2_IRQHandler
+    startup_stm32f407xx.o(.text) refers to system_stm32f4xx.o(.text.SystemInit) for SystemInit
+    startup_stm32f407xx.o(.text) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    system_stm32f4xx.o(.ARM.exidx.text.SystemInit) refers to system_stm32f4xx.o(.text.SystemInit) for [Anonymous Symbol]
+    system_stm32f4xx.o(.text.SystemCoreClockUpdate) refers to system_stm32f4xx.o(.data.SystemCoreClock) for SystemCoreClock
+    system_stm32f4xx.o(.text.SystemCoreClockUpdate) refers to system_stm32f4xx.o(.rodata.AHBPrescTable) for AHBPrescTable
+    system_stm32f4xx.o(.ARM.exidx.text.SystemCoreClockUpdate) refers to system_stm32f4xx.o(.text.SystemCoreClockUpdate) for [Anonymous Symbol]
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000D) for __rt_final_cpp
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$0000000F) for __rt_final_exit
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry7b.o(.ARM.Collect$$$$00000008) for _main_clock
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry8b.o(.ARM.Collect$$$$0000000A) for _main_cpp_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry9a.o(.ARM.Collect$$$$0000000B) for _main_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry5.o(.ARM.Collect$$$$00000004) for _main_scatterload
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry2.o(.ARM.Collect$$$$00000001) for _main_stk
+    malloc.o(i.free) refers to mvars.o(.data) for __microlib_freelist
+    malloc.o(i.malloc) refers to mvars.o(.data) for __microlib_freelist_initialised
+    malloc.o(i.malloc) refers to mvars.o(.data) for __microlib_freelist
+    malloc.o(i.malloc) refers to startup_stm32f407xx.o(HEAP) for __heap_base
+    mallocr.o(i.__free$realloc) refers to mvars.o(.data) for __microlib_freelist
+    mallocr.o(i.__malloc$realloc) refers to mallocr.o(i.internal_alloc) for internal_alloc
+    mallocr.o(i.__malloc$realloc) refers to mvars.o(.data) for __microlib_freelist_initialised
+    mallocr.o(i.__malloc$realloc) refers to startup_stm32f407xx.o(HEAP) for __heap_base
+    mallocr.o(i.__malloc$realloc) refers to mvars.o(.data) for __microlib_freelist
+    mallocr.o(i.internal_alloc) refers to memcpya.o(.text) for __aeabi_memcpy
+    mallocr.o(i.internal_alloc) refers to mvars.o(.data) for __microlib_freelist
+    mallocr.o(i.realloc) refers to mallocr.o(i.__free$realloc) for __free$realloc
+    mallocr.o(i.realloc) refers to mallocr.o(i.internal_alloc) for internal_alloc
+    mallocr.o(i.realloc) refers to mallocr.o(i.__malloc$realloc) for __malloc$realloc
+    mallocr.o(i.realloc) refers to mvars.o(.data) for __microlib_freelist
+    malloca.o(i.__aligned_malloc) refers to mvars.o(.data) for __microlib_freelist_initialised
+    malloca.o(i.__aligned_malloc) refers to mvars.o(.data) for __microlib_freelist
+    malloca.o(i.__aligned_malloc) refers to startup_stm32f407xx.o(HEAP) for __heap_base
+    malloca.o(i.__free$memalign) refers to mvars.o(.data) for __microlib_freelist
+    malloca.o(i.__malloc$memalign) refers to malloca.o(i.__aligned_malloc) for __aligned_malloc
+    mallocra.o(i.__aligned_malloc$realloc) refers to mallocra.o(i.internal_alloc) for internal_alloc
+    mallocra.o(i.__aligned_malloc$realloc) refers to mvars.o(.data) for __microlib_freelist_initialised
+    mallocra.o(i.__aligned_malloc$realloc) refers to startup_stm32f407xx.o(HEAP) for __heap_base
+    mallocra.o(i.__aligned_malloc$realloc) refers to mvars.o(.data) for __microlib_freelist
+    mallocra.o(i.__free$realloc$memalign) refers to mvars.o(.data) for __microlib_freelist
+    mallocra.o(i.__malloc$realloc$memalign) refers to mallocra.o(i.__aligned_malloc$realloc) for __aligned_malloc$realloc
+    mallocra.o(i.__realloc$memalign) refers to mallocra.o(i.__free$realloc$memalign) for __free$realloc$memalign
+    mallocra.o(i.__realloc$memalign) refers to mallocra.o(i.internal_alloc) for internal_alloc
+    mallocra.o(i.__realloc$memalign) refers to mallocra.o(i.__malloc$realloc$memalign) for __malloc$realloc$memalign
+    mallocra.o(i.__realloc$memalign) refers to mvars.o(.data) for __microlib_freelist
+    mallocra.o(i.internal_alloc) refers to memcpya.o(.text) for __aeabi_memcpy
+    mallocra.o(i.internal_alloc) refers to mvars.o(.data) for __microlib_freelist
+    entry2.o(.ARM.Collect$$$$00000001) refers to entry2.o(.ARM.Collect$$$$00002712) for __lit__00000000
+    entry2.o(.ARM.Collect$$$$00002712) refers to startup_stm32f407xx.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to startup_stm32f407xx.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    entry5.o(.ARM.Collect$$$$00000004) refers to init.o(.text) for __scatterload
+    entry9a.o(.ARM.Collect$$$$0000000B) refers to main.o(.text.main) for main
+    entry9b.o(.ARM.Collect$$$$0000000C) refers to main.o(.text.main) for main
+    init.o(.text) refers to entry5.o(.ARM.Collect$$$$00000004) for __main_after_scatterload
+
+
+==============================================================================
+
+Removing Unused input sections from the image.
+
+    Removing oskernel.o(.text), (0 bytes).
+    Removing oskernel.o(.ARM.exidx.text.osKernelStackInit), (8 bytes).
+    Removing oskernel.o(.ARM.exidx.text.osKernelTaskCreate), (8 bytes).
+    Removing oskernel.o(.ARM.exidx.text.osKernelInit), (8 bytes).
+    Removing oskernel.o(.ARM.exidx.text.osKernelLaunch), (8 bytes).
+    Removing oskernel.o(.ARM.exidx.text.osKernelPeriodicInit), (8 bytes).
+    Removing oskernel.o(.ARM.exidx.text.__NVIC_EnableIRQ), (8 bytes).
+    Removing oskernel.o(.ARM.exidx.text.TIM2_IRQHandler), (8 bytes).
+    Removing oskernel.o(.ARM.exidx.text.osKernelPeriodicTaskCreate), (8 bytes).
+    Removing oskernel.o(.ARM.exidx.text.osSchedulerRoundRobin), (8 bytes).
+    Removing oskernel.o(.ARM.exidx.text.osTaskYield), (8 bytes).
+    Removing main.o(.text), (0 bytes).
+    Removing main.o(.ARM.exidx.text.task0), (8 bytes).
+    Removing main.o(.ARM.exidx.text.task1), (8 bytes).
+    Removing main.o(.ARM.exidx.text.task2), (8 bytes).
+    Removing main.o(.ARM.exidx.text.periodicTask1), (8 bytes).
+    Removing main.o(.ARM.exidx.text.periodicTask2), (8 bytes).
+    Removing main.o(.ARM.exidx.text.main), (8 bytes).
+    Removing main.o(.ARM.use_no_argv), (4 bytes).
+    Removing circulerlinkedlist.o(.text), (0 bytes).
+    Removing circulerlinkedlist.o(.ARM.exidx.text.circularlinkedlist_size), (8 bytes).
+    Removing circulerlinkedlist.o(.ARM.exidx.text.circularlinkedlist_new), (8 bytes).
+    Removing circulerlinkedlist.o(.ARM.exidx.text.circularlinkedlist_insert), (8 bytes).
+    Removing circulerlinkedlist.o(.ARM.exidx.text.circularlinkedlist_get_by_index), (8 bytes).
+    Removing system_stm32f4xx.o(.text), (0 bytes).
+    Removing system_stm32f4xx.o(.ARM.exidx.text.SystemInit), (8 bytes).
+    Removing system_stm32f4xx.o(.text.SystemCoreClockUpdate), (302 bytes).
+    Removing system_stm32f4xx.o(.ARM.exidx.text.SystemCoreClockUpdate), (8 bytes).
+    Removing system_stm32f4xx.o(.data.SystemCoreClock), (4 bytes).
+    Removing system_stm32f4xx.o(.rodata.AHBPrescTable), (16 bytes).
+    Removing system_stm32f4xx.o(.rodata.APBPrescTable), (8 bytes).
+
+31 unused section(s) (total 510 bytes) removed from the image.
+
+==============================================================================
+
+Image Symbol Table
+
+    Local Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
+    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloc.o ABSOLUTE
+    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocr.o ABSOLUTE
+    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloca.o ABSOLUTE
+    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocra.o ABSOLUTE
+    ../clib/microlib/malloc/mvars.c          0x00000000   Number         0  mvars.o ABSOLUTE
+    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
+    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
+    CirculerLinkedList.c                     0x00000000   Number         0  circulerlinkedlist.o ABSOLUTE
+    RTE/Device/STM32F407VGTx/startup_stm32f407xx.s 0x00000000   Number         0  startup_stm32f407xx.o ABSOLUTE
+    dc.s                                     0x00000000   Number         0  dc.o ABSOLUTE
+    handlers.s                               0x00000000   Number         0  handlers.o ABSOLUTE
+    init.s                                   0x00000000   Number         0  init.o ABSOLUTE
+    main.c                                   0x00000000   Number         0  main.o ABSOLUTE
+    osKernel.c                               0x00000000   Number         0  oskernel.o ABSOLUTE
+    osKernel/osKernel.s                      0x00000000   Number         0  oskernel_1.o ABSOLUTE
+    system_stm32f4xx.c                       0x00000000   Number         0  system_stm32f4xx.o ABSOLUTE
+    RESET                                    0x08000000   Section      392  startup_stm32f407xx.o(RESET)
+    .ARM.Collect$$$$00000000                 0x08000188   Section        0  entry.o(.ARM.Collect$$$$00000000)
+    .ARM.Collect$$$$00000001                 0x08000188   Section        4  entry2.o(.ARM.Collect$$$$00000001)
+    .ARM.Collect$$$$00000004                 0x0800018c   Section        4  entry5.o(.ARM.Collect$$$$00000004)
+    .ARM.Collect$$$$00000008                 0x08000190   Section        0  entry7b.o(.ARM.Collect$$$$00000008)
+    .ARM.Collect$$$$0000000A                 0x08000190   Section        0  entry8b.o(.ARM.Collect$$$$0000000A)
+    .ARM.Collect$$$$0000000B                 0x08000190   Section        8  entry9a.o(.ARM.Collect$$$$0000000B)
+    __lit__00000000                          0x08000198   Data           4  entry2.o(.ARM.Collect$$$$00002712)
+    .ARM.Collect$$$$0000000D                 0x08000198   Section        0  entry10a.o(.ARM.Collect$$$$0000000D)
+    .ARM.Collect$$$$0000000F                 0x08000198   Section        0  entry11a.o(.ARM.Collect$$$$0000000F)
+    .ARM.Collect$$$$00002712                 0x08000198   Section        4  entry2.o(.ARM.Collect$$$$00002712)
+    $v0                                      0x0800019c   Number         0  oskernel_1.o(.text)
+    .text                                    0x0800019c   Section       76  oskernel_1.o(.text)
+    $v0                                      0x080001e8   Number         0  startup_stm32f407xx.o(.text)
+    .text                                    0x080001e8   Section       36  startup_stm32f407xx.o(.text)
+    .text                                    0x0800020c   Section       36  init.o(.text)
+    [Anonymous Symbol]                       0x08000230   Section        0  system_stm32f4xx.o(.text.SystemInit)
+    [Anonymous Symbol]                       0x08000244   Section        0  oskernel.o(.text.TIM2_IRQHandler)
+    __NVIC_EnableIRQ                         0x080002d5   Thumb Code    48  oskernel.o(.text.__NVIC_EnableIRQ)
+    [Anonymous Symbol]                       0x080002d4   Section        0  oskernel.o(.text.__NVIC_EnableIRQ)
+    [Anonymous Symbol]                       0x08000304   Section        0  circulerlinkedlist.o(.text.circularlinkedlist_get_by_index)
+    [Anonymous Symbol]                       0x08000380   Section        0  circulerlinkedlist.o(.text.circularlinkedlist_insert)
+    [Anonymous Symbol]                       0x080003e8   Section        0  circulerlinkedlist.o(.text.circularlinkedlist_new)
+    [Anonymous Symbol]                       0x080003fc   Section        0  circulerlinkedlist.o(.text.circularlinkedlist_size)
+    [Anonymous Symbol]                       0x0800043c   Section        0  main.o(.text.main)
+    [Anonymous Symbol]                       0x0800049c   Section        0  oskernel.o(.text.osKernelInit)
+    [Anonymous Symbol]                       0x080004bc   Section        0  oskernel.o(.text.osKernelLaunch)
+    [Anonymous Symbol]                       0x08000510   Section        0  oskernel.o(.text.osKernelPeriodicInit)
+    [Anonymous Symbol]                       0x08000568   Section        0  oskernel.o(.text.osKernelPeriodicTaskCreate)
+    [Anonymous Symbol]                       0x080005a4   Section        0  oskernel.o(.text.osKernelStackInit)
+    [Anonymous Symbol]                       0x080006a0   Section        0  oskernel.o(.text.osKernelTaskCreate)
+    [Anonymous Symbol]                       0x08000728   Section        0  oskernel.o(.text.osSchedulerRoundRobin)
+    [Anonymous Symbol]                       0x08000738   Section        0  oskernel.o(.text.osTaskYield)
+    [Anonymous Symbol]                       0x08000754   Section        0  main.o(.text.periodicTask1)
+    [Anonymous Symbol]                       0x08000764   Section        0  main.o(.text.periodicTask2)
+    [Anonymous Symbol]                       0x08000774   Section        0  main.o(.text.task0)
+    [Anonymous Symbol]                       0x0800078c   Section        0  main.o(.text.task1)
+    [Anonymous Symbol]                       0x080007a4   Section        0  main.o(.text.task2)
+    i.__scatterload_copy                     0x080007bc   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x080007ca   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x080007cc   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i.malloc                                 0x080007dc   Section        0  malloc.o(i.malloc)
+    .data                                    0x20000000   Section        4  mvars.o(.data)
+    .data                                    0x20000004   Section        4  mvars.o(.data)
+    MILLIS_PRESCALER                         0x20000008   Data           4  oskernel.o(.bss.MILLIS_PRESCALER)
+    [Anonymous Symbol]                       0x20000008   Section        0  oskernel.o(.bss.MILLIS_PRESCALER)
+    TCB_STACK                                0x2000000c   Data        1200  oskernel.o(.bss.TCB_STACK)
+    [Anonymous Symbol]                       0x2000000c   Section        0  oskernel.o(.bss.TCB_STACK)
+    numOfAddedThread                         0x200004c0   Data           1  oskernel.o(.bss.numOfAddedThread)
+    [Anonymous Symbol]                       0x200004c0   Section        0  oskernel.o(.bss.numOfAddedThread)
+    periodTick                               0x200004c4   Data           4  oskernel.o(.bss.periodTick)
+    [Anonymous Symbol]                       0x200004c4   Section        0  oskernel.o(.bss.periodTick)
+    tcbs                                     0x200004e0   Data          24  oskernel.o(.bss.tcbs)
+    [Anonymous Symbol]                       0x200004e0   Section        0  oskernel.o(.bss.tcbs)
+    HEAP                                     0x200004f8   Section      512  startup_stm32f407xx.o(HEAP)
+    STACK                                    0x200006f8   Section     1024  startup_stm32f407xx.o(STACK)
+
+    Global Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    BuildAttributes$$THM_ISAv4$E$P$D$K$B$S$7EM$VFPi3$EXTD16$VFPS$VFMA$PE$A:L22UL41UL21$X:L11$S22US41US21$IEEE1$IW$~IW$USESV6$~STKCKD$USESV7$~SHL$OSPACE$EBA8$MICROLIB$REQ8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
+    __cpp_initialize__aeabi_                  - Undefined Weak Reference
+    __cxa_finalize                            - Undefined Weak Reference
+    __decompress                              - Undefined Weak Reference
+    _clock_init                               - Undefined Weak Reference
+    _microlib_exit                            - Undefined Weak Reference
+    __Vectors_Size                           0x00000188   Number         0  startup_stm32f407xx.o ABSOLUTE
+    __Vectors                                0x08000000   Data           4  startup_stm32f407xx.o(RESET)
+    __Vectors_End                            0x08000188   Data           0  startup_stm32f407xx.o(RESET)
+    __main                                   0x08000189   Thumb Code     0  entry.o(.ARM.Collect$$$$00000000)
+    _main_stk                                0x08000189   Thumb Code     0  entry2.o(.ARM.Collect$$$$00000001)
+    _main_scatterload                        0x0800018d   Thumb Code     0  entry5.o(.ARM.Collect$$$$00000004)
+    __main_after_scatterload                 0x08000191   Thumb Code     0  entry5.o(.ARM.Collect$$$$00000004)
+    _main_clock                              0x08000191   Thumb Code     0  entry7b.o(.ARM.Collect$$$$00000008)
+    _main_cpp_init                           0x08000191   Thumb Code     0  entry8b.o(.ARM.Collect$$$$0000000A)
+    _main_init                               0x08000191   Thumb Code     0  entry9a.o(.ARM.Collect$$$$0000000B)
+    __rt_final_cpp                           0x08000199   Thumb Code     0  entry10a.o(.ARM.Collect$$$$0000000D)
+    __rt_final_exit                          0x08000199   Thumb Code     0  entry11a.o(.ARM.Collect$$$$0000000F)
+    SysTick_Handler                          0x0800019d   Thumb Code     0  oskernel_1.o(.text)
+    osSchedulerLaunch                        0x080001c7   Thumb Code     0  oskernel_1.o(.text)
+    Reset_Handler                            0x080001e9   Thumb Code     8  startup_stm32f407xx.o(.text)
+    NMI_Handler                              0x080001f1   Thumb Code     2  startup_stm32f407xx.o(.text)
+    HardFault_Handler                        0x080001f3   Thumb Code     2  startup_stm32f407xx.o(.text)
+    MemManage_Handler                        0x080001f5   Thumb Code     2  startup_stm32f407xx.o(.text)
+    BusFault_Handler                         0x080001f7   Thumb Code     2  startup_stm32f407xx.o(.text)
+    UsageFault_Handler                       0x080001f9   Thumb Code     2  startup_stm32f407xx.o(.text)
+    SVC_Handler                              0x080001fb   Thumb Code     2  startup_stm32f407xx.o(.text)
+    DebugMon_Handler                         0x080001fd   Thumb Code     2  startup_stm32f407xx.o(.text)
+    PendSV_Handler                           0x080001ff   Thumb Code     2  startup_stm32f407xx.o(.text)
+    ADC_IRQHandler                           0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    CAN1_RX0_IRQHandler                      0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    CAN1_RX1_IRQHandler                      0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    CAN1_SCE_IRQHandler                      0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    CAN1_TX_IRQHandler                       0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    CAN2_RX0_IRQHandler                      0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    CAN2_RX1_IRQHandler                      0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    CAN2_SCE_IRQHandler                      0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    CAN2_TX_IRQHandler                       0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    DCMI_IRQHandler                          0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    DMA1_Stream0_IRQHandler                  0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    DMA1_Stream1_IRQHandler                  0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    DMA1_Stream2_IRQHandler                  0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    DMA1_Stream3_IRQHandler                  0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    DMA1_Stream4_IRQHandler                  0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    DMA1_Stream5_IRQHandler                  0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    DMA1_Stream6_IRQHandler                  0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    DMA1_Stream7_IRQHandler                  0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    DMA2_Stream0_IRQHandler                  0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    DMA2_Stream1_IRQHandler                  0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    DMA2_Stream2_IRQHandler                  0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    DMA2_Stream3_IRQHandler                  0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    DMA2_Stream4_IRQHandler                  0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    DMA2_Stream5_IRQHandler                  0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    DMA2_Stream6_IRQHandler                  0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    DMA2_Stream7_IRQHandler                  0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    ETH_IRQHandler                           0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    ETH_WKUP_IRQHandler                      0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    EXTI0_IRQHandler                         0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    EXTI15_10_IRQHandler                     0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    EXTI1_IRQHandler                         0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    EXTI2_IRQHandler                         0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    EXTI3_IRQHandler                         0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    EXTI4_IRQHandler                         0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    EXTI9_5_IRQHandler                       0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    FLASH_IRQHandler                         0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    FMC_IRQHandler                           0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    FPU_IRQHandler                           0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    HASH_RNG_IRQHandler                      0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    I2C1_ER_IRQHandler                       0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    I2C1_EV_IRQHandler                       0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    I2C2_ER_IRQHandler                       0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    I2C2_EV_IRQHandler                       0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    I2C3_ER_IRQHandler                       0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    I2C3_EV_IRQHandler                       0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    OTG_FS_IRQHandler                        0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    OTG_FS_WKUP_IRQHandler                   0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    OTG_HS_EP1_IN_IRQHandler                 0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    OTG_HS_EP1_OUT_IRQHandler                0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    OTG_HS_IRQHandler                        0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    OTG_HS_WKUP_IRQHandler                   0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    PVD_IRQHandler                           0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    RCC_IRQHandler                           0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    RTC_Alarm_IRQHandler                     0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    RTC_WKUP_IRQHandler                      0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    SDIO_IRQHandler                          0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    SPI1_IRQHandler                          0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    SPI2_IRQHandler                          0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    SPI3_IRQHandler                          0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    TAMP_STAMP_IRQHandler                    0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    TIM1_BRK_TIM9_IRQHandler                 0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    TIM1_CC_IRQHandler                       0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    TIM1_TRG_COM_TIM11_IRQHandler            0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    TIM1_UP_TIM10_IRQHandler                 0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    TIM3_IRQHandler                          0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    TIM4_IRQHandler                          0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    TIM5_IRQHandler                          0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    TIM6_DAC_IRQHandler                      0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    TIM7_IRQHandler                          0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    TIM8_BRK_TIM12_IRQHandler                0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    TIM8_CC_IRQHandler                       0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    TIM8_TRG_COM_TIM14_IRQHandler            0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    TIM8_UP_TIM13_IRQHandler                 0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    UART4_IRQHandler                         0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    UART5_IRQHandler                         0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    USART1_IRQHandler                        0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    USART2_IRQHandler                        0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    USART3_IRQHandler                        0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    USART6_IRQHandler                        0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    WWDG_IRQHandler                          0x08000203   Thumb Code     0  startup_stm32f407xx.o(.text)
+    __scatterload                            0x0800020d   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x0800020d   Thumb Code     0  init.o(.text)
+    SystemInit                               0x08000231   Thumb Code    18  system_stm32f4xx.o(.text.SystemInit)
+    TIM2_IRQHandler                          0x08000245   Thumb Code   142  oskernel.o(.text.TIM2_IRQHandler)
+    circularlinkedlist_get_by_index          0x08000305   Thumb Code   124  circulerlinkedlist.o(.text.circularlinkedlist_get_by_index)
+    circularlinkedlist_insert                0x08000381   Thumb Code   104  circulerlinkedlist.o(.text.circularlinkedlist_insert)
+    circularlinkedlist_new                   0x080003e9   Thumb Code    18  circulerlinkedlist.o(.text.circularlinkedlist_new)
+    circularlinkedlist_size                  0x080003fd   Thumb Code    64  circulerlinkedlist.o(.text.circularlinkedlist_size)
+    main                                     0x0800043d   Thumb Code    94  main.o(.text.main)
+    osKernelInit                             0x0800049d   Thumb Code    32  oskernel.o(.text.osKernelInit)
+    osKernelLaunch                           0x080004bd   Thumb Code    84  oskernel.o(.text.osKernelLaunch)
+    osKernelPeriodicInit                     0x08000511   Thumb Code    86  oskernel.o(.text.osKernelPeriodicInit)
+    osKernelPeriodicTaskCreate               0x08000569   Thumb Code    60  oskernel.o(.text.osKernelPeriodicTaskCreate)
+    osKernelStackInit                        0x080005a5   Thumb Code   252  oskernel.o(.text.osKernelStackInit)
+    osKernelTaskCreate                       0x080006a1   Thumb Code   136  oskernel.o(.text.osKernelTaskCreate)
+    osSchedulerRoundRobin                    0x08000729   Thumb Code    16  oskernel.o(.text.osSchedulerRoundRobin)
+    osTaskYield                              0x08000739   Thumb Code    28  oskernel.o(.text.osTaskYield)
+    periodicTask1                            0x08000755   Thumb Code    16  main.o(.text.periodicTask1)
+    periodicTask2                            0x08000765   Thumb Code    16  main.o(.text.periodicTask2)
+    task0                                    0x08000775   Thumb Code    24  main.o(.text.task0)
+    task1                                    0x0800078d   Thumb Code    24  main.o(.text.task1)
+    task2                                    0x080007a5   Thumb Code    24  main.o(.text.task2)
+    __scatterload_copy                       0x080007bd   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x080007cb   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x080007cd   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    malloc                                   0x080007dd   Thumb Code    92  malloc.o(i.malloc)
+    Region$$Table$$Base                      0x08000848   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08000868   Number         0  anon$$obj.o(Region$$Table)
+    __microlib_freelist                      0x20000000   Data           4  mvars.o(.data)
+    __microlib_freelist_initialised          0x20000004   Data           4  mvars.o(.data)
+    currentPt                                0x200004bc   Data           4  oskernel.o(.bss.currentPt)
+    periodicTask1Profiller                   0x200004c8   Data           4  main.o(.bss.periodicTask1Profiller)
+    periodicTask2Profiller                   0x200004cc   Data           4  main.o(.bss.periodicTask2Profiller)
+    periodicTaskList                         0x200004d0   Data           4  oskernel.o(.bss.periodicTaskList)
+    task0Profiller                           0x200004d4   Data           4  main.o(.bss.task0Profiller)
+    task1Profiller                           0x200004d8   Data           4  main.o(.bss.task1Profiller)
+    task2Profiller                           0x200004dc   Data           4  main.o(.bss.task2Profiller)
+    __heap_base                              0x200004f8   Data           0  startup_stm32f407xx.o(HEAP)
+    __heap_limit                             0x200006f8   Data           0  startup_stm32f407xx.o(HEAP)
+    __initial_sp                             0x20000af8   Data           0  startup_stm32f407xx.o(STACK)
+
+
+
+==============================================================================
+
+Memory Map of the image
+
+  Image Entry point : 0x080001e9
+
+  Load Region LR_1 (Base: 0x08000000, Size: 0x00000870, Max: 0xffffffff, ABSOLUTE)
+
+    Execution Region ER_RO (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00000868, Max: 0xffffffff, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x08000000   0x08000000   0x00000188   Data   RO           82    RESET               startup_stm32f407xx.o
+    0x08000188   0x08000188   0x00000000   Code   RO          101  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x08000188   0x08000188   0x00000004   Code   RO          132    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x0800018c   0x0800018c   0x00000004   Code   RO          135    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x08000190   0x08000190   0x00000000   Code   RO          137    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x08000190   0x08000190   0x00000000   Code   RO          139    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x08000190   0x08000190   0x00000008   Code   RO          140    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x08000198   0x08000198   0x00000000   Code   RO          142    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x08000198   0x08000198   0x00000000   Code   RO          144    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x08000198   0x08000198   0x00000004   Code   RO          133    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x0800019c   0x0800019c   0x0000004c   Code   RO           35    .text               oskernel_1.o
+    0x080001e8   0x080001e8   0x00000024   Code   RO           83  * .text               startup_stm32f407xx.o
+    0x0800020c   0x0800020c   0x00000024   Code   RO          152    .text               mc_w.l(init.o)
+    0x08000230   0x08000230   0x00000012   Code   RO           88    .text.SystemInit    system_stm32f4xx.o
+    0x08000242   0x08000242   0x00000002   PAD
+    0x08000244   0x08000244   0x0000008e   Code   RO           14    .text.TIM2_IRQHandler  oskernel.o
+    0x080002d2   0x080002d2   0x00000002   PAD
+    0x080002d4   0x080002d4   0x00000030   Code   RO           12    .text.__NVIC_EnableIRQ  oskernel.o
+    0x08000304   0x08000304   0x0000007c   Code   RO           72    .text.circularlinkedlist_get_by_index  circulerlinkedlist.o
+    0x08000380   0x08000380   0x00000068   Code   RO           70    .text.circularlinkedlist_insert  circulerlinkedlist.o
+    0x080003e8   0x080003e8   0x00000012   Code   RO           68    .text.circularlinkedlist_new  circulerlinkedlist.o
+    0x080003fa   0x080003fa   0x00000002   PAD
+    0x080003fc   0x080003fc   0x00000040   Code   RO           66    .text.circularlinkedlist_size  circulerlinkedlist.o
+    0x0800043c   0x0800043c   0x0000005e   Code   RO           51    .text.main          main.o
+    0x0800049a   0x0800049a   0x00000002   PAD
+    0x0800049c   0x0800049c   0x00000020   Code   RO            6    .text.osKernelInit  oskernel.o
+    0x080004bc   0x080004bc   0x00000054   Code   RO            8    .text.osKernelLaunch  oskernel.o
+    0x08000510   0x08000510   0x00000056   Code   RO           10    .text.osKernelPeriodicInit  oskernel.o
+    0x08000566   0x08000566   0x00000002   PAD
+    0x08000568   0x08000568   0x0000003c   Code   RO           16    .text.osKernelPeriodicTaskCreate  oskernel.o
+    0x080005a4   0x080005a4   0x000000fc   Code   RO            2    .text.osKernelStackInit  oskernel.o
+    0x080006a0   0x080006a0   0x00000088   Code   RO            4    .text.osKernelTaskCreate  oskernel.o
+    0x08000728   0x08000728   0x00000010   Code   RO           18    .text.osSchedulerRoundRobin  oskernel.o
+    0x08000738   0x08000738   0x0000001c   Code   RO           20    .text.osTaskYield   oskernel.o
+    0x08000754   0x08000754   0x00000010   Code   RO           47    .text.periodicTask1  main.o
+    0x08000764   0x08000764   0x00000010   Code   RO           49    .text.periodicTask2  main.o
+    0x08000774   0x08000774   0x00000018   Code   RO           41    .text.task0         main.o
+    0x0800078c   0x0800078c   0x00000018   Code   RO           43    .text.task1         main.o
+    0x080007a4   0x080007a4   0x00000018   Code   RO           45    .text.task2         main.o
+    0x080007bc   0x080007bc   0x0000000e   Code   RO          156    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x080007ca   0x080007ca   0x00000002   Code   RO          157    i.__scatterload_null  mc_w.l(handlers.o)
+    0x080007cc   0x080007cc   0x0000000e   Code   RO          158    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x080007da   0x080007da   0x00000002   PAD
+    0x080007dc   0x080007dc   0x0000006c   Code   RO          105    i.malloc            mc_w.l(malloc.o)
+    0x08000848   0x08000848   0x00000020   Data   RO          155    Region$$Table       anon$$obj.o
+
+
+    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x08000868, Size: 0x00000008, Max: 0xffffffff, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000000   0x08000868   0x00000004   Data   RW          150    .data               mc_w.l(mvars.o)
+    0x20000004   0x0800086c   0x00000004   Data   RW          151    .data               mc_w.l(mvars.o)
+
+
+    Execution Region ER_ZI (Exec base: 0x20000008, Load base: 0x08000870, Size: 0x00000af0, Max: 0xffffffff, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000008        -       0x00000004   Zero   RW           27    .bss.MILLIS_PRESCALER  oskernel.o
+    0x2000000c        -       0x000004b0   Zero   RW           22    .bss.TCB_STACK      oskernel.o
+    0x200004bc        -       0x00000004   Zero   RW           25    .bss.currentPt      oskernel.o
+    0x200004c0        -       0x00000001   Zero   RW           24    .bss.numOfAddedThread  oskernel.o
+    0x200004c1   0x08000870   0x00000003   PAD
+    0x200004c4        -       0x00000004   Zero   RW           28    .bss.periodTick     oskernel.o
+    0x200004c8        -       0x00000004   Zero   RW           56    .bss.periodicTask1Profiller  main.o
+    0x200004cc        -       0x00000004   Zero   RW           57    .bss.periodicTask2Profiller  main.o
+    0x200004d0        -       0x00000004   Zero   RW           26    .bss.periodicTaskList  oskernel.o
+    0x200004d4        -       0x00000004   Zero   RW           53    .bss.task0Profiller  main.o
+    0x200004d8        -       0x00000004   Zero   RW           54    .bss.task1Profiller  main.o
+    0x200004dc        -       0x00000004   Zero   RW           55    .bss.task2Profiller  main.o
+    0x200004e0        -       0x00000018   Zero   RW           23    .bss.tcbs           oskernel.o
+    0x200004f8        -       0x00000200   Zero   RW           81    HEAP                startup_stm32f407xx.o
+    0x200006f8        -       0x00000400   Zero   RW           80    STACK               startup_stm32f407xx.o
+
+
+==============================================================================
+
+Image component sizes
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
+
+       310          0          0          0          0       1604   circulerlinkedlist.o
+       198          0          0          0         20       1099   main.o
+       884          0          0          0       1241       6628   oskernel.o
+        76          4          0          0          0        268   oskernel_1.o
+        36          8        392          0       1536        836   startup_stm32f407xx.o
+        18          0          0          0          0       2595   system_stm32f4xx.o
+
+    ----------------------------------------------------------------------
+      1532         12        424          0       2800      13030   Object Totals
+         0          0         32          0          0          0   (incl. Generated)
+        10          0          0          0          3          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Member Name
+
+         0          0          0          0          0          0   entry.o
+         0          0          0          0          0          0   entry10a.o
+         0          0          0          0          0          0   entry11a.o
+         8          4          0          0          0          0   entry2.o
+         4          0          0          0          0          0   entry5.o
+         0          0          0          0          0          0   entry7b.o
+         0          0          0          0          0          0   entry8b.o
+         8          4          0          0          0          0   entry9a.o
+        30          0          0          0          0          0   handlers.o
+        36          8          0          0          0         68   init.o
+       108         16          0          0          0         84   malloc.o
+         0          0          0          8          0          0   mvars.o
+
+    ----------------------------------------------------------------------
+       196         32          0          8          0        152   Library Totals
+         2          0          0          0          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Name
+
+       194         32          0          8          0        152   mc_w.l
+
+    ----------------------------------------------------------------------
+       196         32          0          8          0        152   Library Totals
+
+    ----------------------------------------------------------------------
+
+==============================================================================
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
+
+      1728         44        424          8       2800      13326   Grand Totals
+      1728         44        424          8       2800      13326   ELF Image Totals
+      1728         44        424          8          0          0   ROM Totals
+
+==============================================================================
+
+    Total RO  Size (Code + RO Data)                 2152 (   2.10kB)
+    Total RW  Size (RW Data + ZI Data)              2808 (   2.74kB)
+    Total ROM Size (Code + RO Data + RW Data)       2160 (   2.11kB)
+
+==============================================================================
+
