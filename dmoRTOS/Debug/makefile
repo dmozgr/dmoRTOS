@@ -11,6 +11,8 @@ RM := rm -rf
 -include sources.mk
 -include Startup/subdir.mk
 -include Src/subdir.mk
+-include Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/subdir.mk
+-include Middleware/dmoRTOS/Source/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)

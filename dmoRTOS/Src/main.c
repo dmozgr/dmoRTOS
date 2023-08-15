@@ -18,12 +18,46 @@
 
 #include <stdint.h>
 
+#include "dmoRTOS.h"
+#include "task.h"
+
+
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 
+uint32_t task0_profiler = 0;
+
+uint32_t task1_profiler = 0;
+
+uint32_t task2_profiler = 0;
+void task0(void)
+{
+	while(1)
+	{
+		task0_profiler++;
+	}
+}
+void task1(void)
+{
+	while(1)
+	{
+		task1_profiler++;
+	}
+}
+void task2(void)
+{
+	while(1)
+	{
+		task2_profiler++;
+	}
+}
 int main(void)
 {
     /* Loop forever */
-	for(;;);
+	xTaskCreate(&task0, 0);
+	xTaskCreate(&task1, 1);
+	xTaskCreate(&task2, 2);
+
+	xTaskStartScheduler();
 }

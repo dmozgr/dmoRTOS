@@ -5,29 +5,23 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Src/main.c \
-../Src/syscalls.c \
-../Src/sysmem.c 
+../Middleware/dmoRTOS/Source/task.c 
 
 OBJS += \
-./Src/main.o \
-./Src/syscalls.o \
-./Src/sysmem.o 
+./Middleware/dmoRTOS/Source/task.o 
 
 C_DEPS += \
-./Src/main.d \
-./Src/syscalls.d \
-./Src/sysmem.d 
+./Middleware/dmoRTOS/Source/task.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-Src/%.o Src/%.su: ../Src/%.c Src/subdir.mk
+Middleware/dmoRTOS/Source/%.o Middleware/dmoRTOS/Source/%.su: ../Middleware/dmoRTOS/Source/%.c Middleware/dmoRTOS/Source/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/workspace/sau_ce_tasarim_calismasi/dmoRTOS/dmoRTOS/../chip_headers/Device" -I"C:/workspace/sau_ce_tasarim_calismasi/dmoRTOS/dmoRTOS/../chip_headers/Include" -I"C:/workspace/sau_ce_tasarim_calismasi/dmoRTOS/dmoRTOS/Middleware/dmoRTOS/Source/include" -I"C:/workspace/sau_ce_tasarim_calismasi/dmoRTOS/dmoRTOS/Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F" -I"C:/workspace/sau_ce_tasarim_calismasi/dmoRTOS/dmoRTOS/Middleware/dmoRTOS/Source" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 
-clean: clean-Src
+clean: clean-Middleware-2f-dmoRTOS-2f-Source
 
-clean-Src:
-	-$(RM) ./Src/main.d ./Src/main.o ./Src/main.su ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
+clean-Middleware-2f-dmoRTOS-2f-Source:
+	-$(RM) ./Middleware/dmoRTOS/Source/task.d ./Middleware/dmoRTOS/Source/task.o ./Middleware/dmoRTOS/Source/task.su
 
-.PHONY: clean-Src
+.PHONY: clean-Middleware-2f-dmoRTOS-2f-Source
 

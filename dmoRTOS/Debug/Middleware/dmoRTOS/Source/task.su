@@ -1,0 +1,2 @@
+../Middleware/dmoRTOS/Source/task.c:4:6:xTaskCreate	16	static
+../Middleware/dmoRTOS/Source/task.c:8:6:xTaskStartScheduler	8	static
