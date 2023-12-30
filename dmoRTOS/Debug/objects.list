@@ -1,4 +1,5 @@
 "./Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/port.o"
+"./Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/semphr.o"
 "./Middleware/dmoRTOS/Source/task.o"
 "./Src/main.o"
 "./Src/syscalls.o"

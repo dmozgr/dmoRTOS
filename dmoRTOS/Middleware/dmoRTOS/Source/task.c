@@ -1,11 +1,17 @@
 #include "task.h"
 #include "portable.h"
 
-void xTaskCreate(void(*funcPt)(void), uint8_t threadID)
+void xTaskCreate(void(*funcPt)(void), uint16_t period)
 {
-	xPortTaskCreate(funcPt, threadID);
+	xPortTaskCreate(funcPt, uint16_t period);
 }
 void xTaskStartScheduler( void )
 {
 	xPortSchedulerStart();
 }
+
+void xTaskYield(  )
+{
+	xPortTaskYield(  );
+}
+

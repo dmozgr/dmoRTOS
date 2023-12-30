@@ -1,6 +1,7 @@
-../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/port.c:27:6:vPortTaskStackInit	16	static
-../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/port.c:51:9:xPortTaskCreate	16	static,ignoring_inline_asm
-../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/port.c:76:9:vPortSetupTimerInterrupt	4	static,ignoring_inline_asm
-../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/port.c:92:6:vPortSchedulerLaunch	4	static,ignoring_inline_asm
-../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/port.c:109:29:SysTick_Handler	0	static,ignoring_inline_asm
-../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/port.c:145:6:xPortSchedulerStart	8	static
+../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/port.c:15:6:vPortTaskStackInit	16	static
+../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/port.c:37:9:xPortTaskCreate	24	static,ignoring_inline_asm
+../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/port.c:61:9:vPortSetupTimerInterrupt	4	static,ignoring_inline_asm
+../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/port.c:77:6:vPortSchedulerLaunch	16	static,ignoring_inline_asm
+../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/port.c:103:29:SysTick_Handler	0	static,ignoring_inline_asm
+../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/port.c:133:6:xPortSchedulerStart	8	static
+../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/port.c:139:6:xPortTaskYield	4	static

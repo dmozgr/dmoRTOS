@@ -1,7 +1,6 @@
 #include <stdint.h>
+#include <stddef.h>
 
-
-#define NUM_OF_THREADS	3
 #define STACK_SIZE 		100
 
 typedef struct tcb_t tcb_t;
@@ -10,8 +9,21 @@ struct tcb_t{
 	tcb_t *nextPt;
 };
 
-tcb_t tcbs[NUM_OF_THREADS];
-tcb_t *currentPt;
+typedef enum {
+    READY,
+    RUNNING,
+    BLOCKED,
+} TaskState;
 
-/*Every thread will have 100 byte stacksize*/
-int32_t TCB_STACK[NUM_OF_THREADS][STACK_SIZE];
+typedef struct taskcontrolblock_t taskcontrolblock_t;
+struct taskcontrolblock_t{
+	taskcontrolblock_t *nextTask;
+	int32_t stack[STACK_SIZE];
+	tcb_t tcb;
+	TaskState state;
+};
+
+taskcontrolblock_t* currentTask = NULL;
+taskcontrolblock_t *taskList = NULL;
+
+tcb_t *currentPt;

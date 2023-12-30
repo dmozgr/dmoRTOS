@@ -1,0 +1,3 @@
+../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/semphr.c:10:13:xSemaphoreCreate	24	static
+../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/semphr.c:16:6:vSemaphoreTake	16	static,ignoring_inline_asm
+../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/semphr.c:28:6:vSemaphoreGive	16	static,ignoring_inline_asm

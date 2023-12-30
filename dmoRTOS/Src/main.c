@@ -20,10 +20,11 @@
 
 #include "dmoRTOS.h"
 #include "task.h"
+#include "semphr.h"
 
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
-  #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+  #warning "FPU baslatilmadi, ancak proje bir FPU için derleniyor. Lutfen kullanmadan önce FPU'yu baslatin."
 #endif
 
 uint32_t task0_profiler = 0;
@@ -31,18 +32,26 @@ uint32_t task0_profiler = 0;
 uint32_t task1_profiler = 0;
 
 uint32_t task2_profiler = 0;
+
+semaphore_t semphr_1;
+
+
 void task0(void)
 {
 	while(1)
 	{
+		vSemaphoreTake(&semphr_1);
 		task0_profiler++;
+		vSemaphoreGive(&semphr_1);
 	}
 }
 void task1(void)
 {
 	while(1)
 	{
+		vSemaphoreTake(&semphr_1);
 		task1_profiler++;
+		vSemaphoreGive(&semphr_1);
 	}
 }
 void task2(void)
@@ -50,14 +59,17 @@ void task2(void)
 	while(1)
 	{
 		task2_profiler++;
+		xTaskYield();
 	}
 }
+
 int main(void)
 {
-    /* Loop forever */
-	xTaskCreate(&task0, 0);
-	xTaskCreate(&task1, 1);
-	xTaskCreate(&task2, 2);
+	semphr_1 = xSemaphoreCreate(1);
+
+	xTaskCreate(&task0);
+	xTaskCreate(&task1);
+	xTaskCreate(&task2);
 
 	xTaskStartScheduler();
 }

@@ -1,0 +1,3 @@
+../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/semphr.c:10:13:xSemaphoreCreate	1
+../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/semphr.c:16:6:vSemaphoreTake	2
+../Middleware/dmoRTOS/Source/portable/GCC/ARM_CM4F/semphr.c:28:6:vSemaphoreGive	1
