@@ -22,4 +22,6 @@
 #define portNVIC_PENDSVCLEAR_BIT 			( 1UL << 27UL )
 #define portNVIC_PEND_SYSTICK_CLEAR_BIT		( 1UL << 25UL )
 
+#define MS_TO_TICKS(ms) ((ms) * (configSYSTICK_CLOCK_HZ ) / (configTICK_RATE_HZ ) - 1UL)
+
 #endif /* PORTABLE_GCC_ARM_CM4F_PORTMACRO_H_ */

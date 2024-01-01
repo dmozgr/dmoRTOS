@@ -7,6 +7,11 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdbool.h>
+
+static taskcontrolblock_t *idleTask;
+static void xPortCreateIdleHookTask(void(*funcPt)(void));
+void xPortIdleHook(void);
 
 void vPortTaskStackInit(taskcontrolblock_t *task ,int32_t programCounter);
 void vPortSchedulerLaunch();
@@ -15,7 +20,7 @@ uint8_t vPortSetupTimerInterrupt();
 void vPortTaskStackInit(taskcontrolblock_t *task ,int32_t programCounter)
 {
 	task->stack[STACK_SIZE - 2] = programCounter;
-	task->tcb.stackPt = &task->stack[STACK_SIZE - 16];
+	task->tcb->stackPt = &task->stack[STACK_SIZE - 16];
 	task->stack[STACK_SIZE - 1] = ( 1U << 24 ); /* PSR */
 
 	task->stack[STACK_SIZE - 3] = 0x12345603;
@@ -34,6 +39,8 @@ void vPortTaskStackInit(taskcontrolblock_t *task ,int32_t programCounter)
 	task->stack[STACK_SIZE - 16] = 0x12345616;
 }
 
+//void BOŞTABEKLEMEFONKSIYONU
+
 uint8_t xPortTaskCreate( void(*funcPt)(void), uint16_t period)
 {
 	__disable_irq();
@@ -41,15 +48,26 @@ uint8_t xPortTaskCreate( void(*funcPt)(void), uint16_t period)
 
 	if(taskList == NULL)
 	{
+		tcb_t *newTcb = (tcb_t*)malloc(sizeof(tcb_t));
+		newTask->tcb = newTcb;
 		vPortTaskStackInit(newTask, (uint32_t)(funcPt));
-		newTask->state = READY;
+		currentTask = newTask;
+		newTask->sleepTime = 0;
+		newTask->state = BLOCKED;
+		newTask->period = period;
+		newTask->programCounter = funcPt;
 		newTask->nextTask = newTask;
 		taskList = newTask;
+		xPortCreateIdleHookTask(&xPortIdleHook);
 	}
 	else
 	{
+		tcb_t *newTcb = (tcb_t*)malloc(sizeof(tcb_t));
+		newTask->tcb = newTcb;
 		vPortTaskStackInit(newTask, (uint32_t)(funcPt));
-		newTask->state = READY;
+		newTask->state = BLOCKED;
+		newTask->programCounter = funcPt;
+		newTask->period = period;
 		newTask->nextTask = taskList->nextTask;
 		taskList->nextTask = newTask;
 	}
@@ -76,15 +94,15 @@ uint8_t vPortSetupTimerInterrupt()
 
 void vPortSchedulerLaunch()
 {
-	taskcontrolblock_t* temp;
-	temp = taskList->nextTask;
+	//taskcontrolblock_t* temp;
+	//temp = taskList->nextTask;
 
-	do {
-		temp->tcb.nextPt = &temp->nextTask->tcb;
-		temp = temp->nextTask;
-	} while (temp != taskList->nextTask);
+	//do {
+	//temp->tcb->nextPt = temp->nextTask->tcb;
+	//temp = temp->nextTask;
+	//} while (temp != taskList->nextTask);
 
-	currentPt = &taskList->nextTask->tcb;
+	currentPt = currentTask->tcb;
 	__asm("LDR R0,=currentPt");
 	__asm("LDR R2,[r0]");
 	__asm("LDR SP,[R2]");
@@ -98,6 +116,68 @@ void vPortSchedulerLaunch()
 
 	/* Task fonksiyonuna dön */
 	__asm("BX	LR");
+}
+
+void deneme()
+{
+	taskcontrolblock_t *temp = taskList;
+//
+//	do{
+//		if( temp->state == READY )
+//		{
+//			currentTask = temp;
+//			currentTask->state = RUNNING;
+//			currentPt = currentTask->tcb;
+//			goto exit;
+//		}
+//	}while( temp != taskList->nextTask);
+
+	if( taskList != NULL )
+	{
+		do{
+			if( temp->state != READY )
+			{
+				if( (temp->sleepTime <= temp->period))
+				{
+					temp->sleepTime += configQUANTA;
+					temp->state = BLOCKED;
+				}
+				else{
+					temp->sleepTime = 0;
+					temp->state = READY;
+				}
+			}
+			temp = temp->nextTask;
+
+		} while(temp != taskList);
+	}
+
+	temp = taskList;
+
+	do{
+		if( temp->state == READY )
+		{
+			currentTask = temp;
+			currentTask->state = RUNNING;
+			currentPt = currentTask->tcb;
+			goto exit;
+		}
+		temp = temp->nextTask;
+	} while( temp != taskList);
+
+	currentTask = idleTask;
+	currentPt = idleTask->tcb;
+
+	exit:
+		__asm("nop");
+//	if( currentTask->sleepTime < periodTick )
+//	{
+//		currentTask->sleepTime+=MS_TO_TICKS(configQUANTA);
+//		currentTask = currentTask->nextTask;
+//		xPortTaskYield();
+//	}
+//	currentPt = currentTask->tcb;
+//	currentTask = currentTask->nextTask;
 }
 
 __attribute__((naked)) void xPortSysTickHandler( void )
@@ -114,8 +194,14 @@ __attribute__((naked)) void xPortSysTickHandler( void )
 	__asm("STR SP,[R1]");
 
 	// r1'i, currentPt'nin 4 byte üstündeki adres noktasından yükle, yani r1 = currentPt -> nextPt
-	__asm("LDR R1,[R1,#4]");
-	__asm("STR R1,[R0]");
+
+
+	__asm("PUSH {R0,LR}");
+	__asm("BL deneme");
+	__asm("POP {R0,LR}");
+	__asm("LDR R1,[R0]");
+	//__asm("LDR R1,=tmp");
+	//__asm("STR R1,[R0]");
 
 	// SP'yi r1'den yükle
 	__asm("LDR SP,[R1]");
@@ -138,9 +224,36 @@ void xPortSchedulerStart()
 
 void xPortTaskYield(  )
 {
-	portNVIC_SYSTICK_CURRENT_VALUE_REG = 0;
+	portNVIC_SYSTICK_CURRENT_VALUE_REG = 0x00;
 	portNVIC_INTCTRL = 0x04000000;	// Trigger Systick
 }
 
+void xPortTaskWait()
+{
+	currentTask->state = BLOCKED;
+	while(currentTask->state == BLOCKED);
+}
+
+uint32_t idleHookTick = 0;
+
+void xPortIdleHook(void)
+{
+	while(1)
+	{
+		idleHookTick++;
+	}
+}
+
+static void xPortCreateIdleHookTask(void(*funcPt)(void))
+{
+	idleTask = (taskcontrolblock_t*)malloc(sizeof(taskcontrolblock_t));
+
+	tcb_t *newTcb = (tcb_t*)malloc(sizeof(tcb_t));
+	idleTask->tcb = newTcb;
+	vPortTaskStackInit(idleTask, (uint32_t)(funcPt));
+	idleTask->sleepTime = 0;
+	idleTask->state = IDLE;
+	idleTask->period = 0;
+}
 
 

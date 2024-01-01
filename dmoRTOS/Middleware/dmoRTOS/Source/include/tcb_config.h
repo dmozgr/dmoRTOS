@@ -6,21 +6,24 @@
 typedef struct tcb_t tcb_t;
 struct tcb_t{
 	int32_t *stackPt;
-	tcb_t *nextPt;
 };
 
 typedef enum {
     READY,
     RUNNING,
     BLOCKED,
+	IDLE
 } TaskState;
 
 typedef struct taskcontrolblock_t taskcontrolblock_t;
 struct taskcontrolblock_t{
 	taskcontrolblock_t *nextTask;
 	int32_t stack[STACK_SIZE];
-	tcb_t tcb;
+	tcb_t *tcb;
+	uint32_t programCounter;
 	TaskState state;
+	uint32_t sleepTime;
+	uint16_t period;
 };
 
 taskcontrolblock_t* currentTask = NULL;

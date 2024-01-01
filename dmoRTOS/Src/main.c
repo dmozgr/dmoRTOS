@@ -33,6 +33,8 @@ uint32_t task1_profiler = 0;
 
 uint32_t task2_profiler = 0;
 
+uint32_t task3_profiler = 0;
+
 semaphore_t semphr_1;
 
 
@@ -40,18 +42,16 @@ void task0(void)
 {
 	while(1)
 	{
-		vSemaphoreTake(&semphr_1);
 		task0_profiler++;
-		vSemaphoreGive(&semphr_1);
+		xTaskWait();
 	}
 }
 void task1(void)
 {
 	while(1)
 	{
-		vSemaphoreTake(&semphr_1);
 		task1_profiler++;
-		vSemaphoreGive(&semphr_1);
+		xTaskWait();
 	}
 }
 void task2(void)
@@ -59,7 +59,16 @@ void task2(void)
 	while(1)
 	{
 		task2_profiler++;
-		xTaskYield();
+		xTaskWait();
+	}
+}
+
+void task3(void)
+{
+	while(1)
+	{
+		task3_profiler++;
+		xTaskWait();
 	}
 }
 
@@ -67,9 +76,10 @@ int main(void)
 {
 	semphr_1 = xSemaphoreCreate(1);
 
-	xTaskCreate(&task0);
-	xTaskCreate(&task1);
-	xTaskCreate(&task2);
+	xTaskCreate(&task0, 500);
+	xTaskCreate(&task1, 50);
+	xTaskCreate(&task2, 3000);
+	xTaskCreate(&task3, 1);
 
 	xTaskStartScheduler();
 }

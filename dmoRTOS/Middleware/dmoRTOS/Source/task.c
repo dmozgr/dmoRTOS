@@ -3,7 +3,7 @@
 
 void xTaskCreate(void(*funcPt)(void), uint16_t period)
 {
-	xPortTaskCreate(funcPt, uint16_t period);
+	xPortTaskCreate(funcPt, period);
 }
 void xTaskStartScheduler( void )
 {
@@ -13,5 +13,10 @@ void xTaskStartScheduler( void )
 void xTaskYield(  )
 {
 	xPortTaskYield(  );
+}
+
+void xTaskWait( void )
+{
+	xPortTaskWait();
 }
 

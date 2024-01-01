@@ -7,5 +7,6 @@
 void xTaskCreate(void(*funcPt)(void), uint16_t period);
 void xTaskStartScheduler( void );
 void xTaskYield( void );
+void xTaskWait( void );
 
 #endif
