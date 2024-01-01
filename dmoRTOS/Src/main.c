@@ -37,12 +37,14 @@ uint32_t task3_profiler = 0;
 
 semaphore_t semphr_1;
 
+int deneme = 1;
 
 void task0(void)
 {
 	while(1)
 	{
 		task0_profiler++;
+		deneme++;
 		xTaskWait();
 	}
 }
@@ -51,6 +53,7 @@ void task1(void)
 	while(1)
 	{
 		task1_profiler++;
+		deneme--;
 		xTaskWait();
 	}
 }
@@ -72,14 +75,13 @@ void task3(void)
 	}
 }
 
+
 int main(void)
 {
 	semphr_1 = xSemaphoreCreate(1);
 
-	xTaskCreate(&task0, 500);
-	xTaskCreate(&task1, 50);
-	xTaskCreate(&task2, 3000);
-	xTaskCreate(&task3, 1);
+	xTaskCreate(&task0, 100, 2);
+	xTaskCreate(&task1, 50, 1);
 
 	xTaskStartScheduler();
 }

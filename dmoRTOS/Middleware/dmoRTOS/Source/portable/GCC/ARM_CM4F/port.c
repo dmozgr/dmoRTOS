@@ -41,35 +41,43 @@ void vPortTaskStackInit(taskcontrolblock_t *task ,int32_t programCounter)
 
 //void BOŞTABEKLEMEFONKSIYONU
 
-uint8_t xPortTaskCreate( void(*funcPt)(void), uint16_t period)
+uint8_t xPortTaskCreate( void(*funcPt)(void), uint16_t period, uint8_t priority)
 {
 	__disable_irq();
 	taskcontrolblock_t* newTask = (taskcontrolblock_t*)malloc(sizeof(taskcontrolblock_t));
+	tcb_t *newTcb = (tcb_t*)malloc(sizeof(tcb_t));
 
-	if(taskList == NULL)
+	newTask->priority = priority;
+	newTask->tcb = newTcb;
+	newTask->sleepTime = 0;
+	newTask->state = BLOCKED;
+	newTask->period = period;
+	vPortTaskStackInit(newTask, (uint32_t)(funcPt));
+
+	newTask->nextTask = NULL;
+
+	if(taskList == NULL )
 	{
-		tcb_t *newTcb = (tcb_t*)malloc(sizeof(tcb_t));
-		newTask->tcb = newTcb;
-		vPortTaskStackInit(newTask, (uint32_t)(funcPt));
-		currentTask = newTask;
-		newTask->sleepTime = 0;
-		newTask->state = BLOCKED;
-		newTask->period = period;
-		newTask->programCounter = funcPt;
-		newTask->nextTask = newTask;
-		taskList = newTask;
 		xPortCreateIdleHookTask(&xPortIdleHook);
+		taskList = newTask;
+		currentTask = taskList;
+		__enable_irq();
+		return;
+	}
+
+	if( priority < taskList->priority )
+	{
+		newTask->nextTask = taskList;
+		taskList = newTask;
 	}
 	else
 	{
-		tcb_t *newTcb = (tcb_t*)malloc(sizeof(tcb_t));
-		newTask->tcb = newTcb;
-		vPortTaskStackInit(newTask, (uint32_t)(funcPt));
-		newTask->state = BLOCKED;
-		newTask->programCounter = funcPt;
-		newTask->period = period;
-		newTask->nextTask = taskList->nextTask;
-		taskList->nextTask = newTask;
+		taskcontrolblock_t *current = taskList;
+        while (current->nextTask != NULL && priority >= current->nextTask->priority) {
+            current = current->nextTask;
+        }
+		newTask->nextTask = current->nextTask;
+		current->nextTask = newTask;
 	}
 
 	__enable_irq();
@@ -94,14 +102,6 @@ uint8_t vPortSetupTimerInterrupt()
 
 void vPortSchedulerLaunch()
 {
-	//taskcontrolblock_t* temp;
-	//temp = taskList->nextTask;
-
-	//do {
-	//temp->tcb->nextPt = temp->nextTask->tcb;
-	//temp = temp->nextTask;
-	//} while (temp != taskList->nextTask);
-
 	currentPt = currentTask->tcb;
 	__asm("LDR R0,=currentPt");
 	__asm("LDR R2,[r0]");
@@ -118,19 +118,9 @@ void vPortSchedulerLaunch()
 	__asm("BX	LR");
 }
 
-void deneme()
+static void xTaskSwitch()
 {
 	taskcontrolblock_t *temp = taskList;
-//
-//	do{
-//		if( temp->state == READY )
-//		{
-//			currentTask = temp;
-//			currentTask->state = RUNNING;
-//			currentPt = currentTask->tcb;
-//			goto exit;
-//		}
-//	}while( temp != taskList->nextTask);
 
 	if( taskList != NULL )
 	{
@@ -149,7 +139,7 @@ void deneme()
 			}
 			temp = temp->nextTask;
 
-		} while(temp != taskList);
+		} while(temp != NULL);
 	}
 
 	temp = taskList;
@@ -163,21 +153,13 @@ void deneme()
 			goto exit;
 		}
 		temp = temp->nextTask;
-	} while( temp != taskList);
+	} while( temp != NULL);
 
 	currentTask = idleTask;
 	currentPt = idleTask->tcb;
 
 	exit:
 		__asm("nop");
-//	if( currentTask->sleepTime < periodTick )
-//	{
-//		currentTask->sleepTime+=MS_TO_TICKS(configQUANTA);
-//		currentTask = currentTask->nextTask;
-//		xPortTaskYield();
-//	}
-//	currentPt = currentTask->tcb;
-//	currentTask = currentTask->nextTask;
 }
 
 __attribute__((naked)) void xPortSysTickHandler( void )
@@ -193,15 +175,11 @@ __attribute__((naked)) void xPortSysTickHandler( void )
 	__asm("LDR R1,[R0]");
 	__asm("STR SP,[R1]");
 
-	// r1'i, currentPt'nin 4 byte üstündeki adres noktasından yükle, yani r1 = currentPt -> nextPt
-
-
+	//R0'ı yani current pointerı depoluyoruz. Çünkü bir fonksiyon çağrısı yapılıyor.
 	__asm("PUSH {R0,LR}");
-	__asm("BL deneme");
+	__asm("BL xTaskSwitch");
 	__asm("POP {R0,LR}");
 	__asm("LDR R1,[R0]");
-	//__asm("LDR R1,=tmp");
-	//__asm("STR R1,[R0]");
 
 	// SP'yi r1'den yükle
 	__asm("LDR SP,[R1]");
@@ -244,6 +222,7 @@ void xPortIdleHook(void)
 	}
 }
 
+// Hiç bir task çalışmıyorken yani blocklanmışken gerçekleşen task
 static void xPortCreateIdleHookTask(void(*funcPt)(void))
 {
 	idleTask = (taskcontrolblock_t*)malloc(sizeof(taskcontrolblock_t));

@@ -20,7 +20,7 @@ struct taskcontrolblock_t{
 	taskcontrolblock_t *nextTask;
 	int32_t stack[STACK_SIZE];
 	tcb_t *tcb;
-	uint32_t programCounter;
+	uint8_t priority;
 	TaskState state;
 	uint32_t sleepTime;
 	uint16_t period;
